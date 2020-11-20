@@ -1,0 +1,10 @@
+name: TextGCN
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - tensorflow
+  - scikit-learn
+  - networkx
+  - nltk
+  - pandas
