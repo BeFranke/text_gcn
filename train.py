@@ -3,6 +3,11 @@ from __future__ import print_function
 
 import time
 import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+from tensorflow.python.client import device_lib
+
+print(device_lib.list_local_devices())
 
 from sklearn import metrics
 from utils import *
@@ -12,13 +17,13 @@ import os
 import sys
 
 if len(sys.argv) != 2:
-	sys.exit("Use: python train.py <dataset>")
+    sys.exit("Use: python train.py <dataset>")
 
-datasets = ['20ng', 'R8', 'R52', 'ohsumed', 'mr']
+#datasets = ['20ng', 'R8', 'R52', 'ohsumed', 'mr']
 dataset = sys.argv[1]
 
-if dataset not in datasets:
-	sys.exit("wrong dataset name")
+#if dataset not in datasets:
+#	sys.exit("wrong dataset name")
 
 
 # Set random seed
@@ -86,11 +91,9 @@ placeholders = {
 # Create model
 print(features[2][1])
 model = model_func(placeholders, input_dim=features[2][1], logging=True)
-
 # Initialize session
 session_conf = tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True))
 sess = tf.Session(config=session_conf)
-
 
 # Define model evaluation function
 def evaluate(features, support, labels, mask, placeholders):
@@ -103,7 +106,6 @@ def evaluate(features, support, labels, mask, placeholders):
 
 # Init variables
 sess.run(tf.global_variables_initializer())
-
 cost_val = []
 
 # Train model
@@ -114,11 +116,11 @@ for epoch in range(FLAGS.epochs):
     feed_dict = construct_feed_dict(
         features, support, y_train, train_mask, placeholders)
     feed_dict.update({placeholders['dropout']: FLAGS.dropout})
-
+    
     # Training step
     outs = sess.run([model.opt_op, model.loss, model.accuracy,
                      model.layers[0].embedding], feed_dict=feed_dict)
-
+    
     # Validation
     cost, acc, pred, labels, duration = evaluate(
         features, support, y_val, val_mask, placeholders)

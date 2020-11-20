@@ -6,13 +6,13 @@ from utils import clean_str, loadWord2Vec
 import sys
 
 if len(sys.argv) != 2:
-	sys.exit("Use: python remove_words.py <dataset>")
+    sys.exit("Use: python remove_words.py <dataset>")
 
-datasets = ['20ng', 'R8', 'R52', 'ohsumed', 'mr']
+# datasets = ['20ng', 'R8', 'R52', 'ohsumed', 'mr']
 dataset = sys.argv[1]
 
-if dataset not in datasets:
-	sys.exit("wrong dataset name")
+# if dataset not in datasets:
+#	sys.exit("wrong dataset name")
 
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
@@ -30,7 +30,6 @@ f = open('data/corpus/' + dataset + '.txt', 'rb')
 for line in f.readlines():
     doc_content_list.append(line.strip().decode('latin1'))
 f.close()
-
 
 word_freq = {}  # to remove rare words
 
@@ -56,24 +55,24 @@ for doc_content in doc_content_list:
             doc_words.append(word)
 
     doc_str = ' '.join(doc_words).strip()
-    #if doc_str == '':
-        #doc_str = temp
+    # if doc_str == '':
+    # doc_str = temp
     clean_docs.append(doc_str)
 
 clean_corpus_str = '\n'.join(clean_docs)
 
 f = open('data/corpus/' + dataset + '.clean.txt', 'w')
-#f = open('data/wiki_long_abstracts_en_text.clean.txt', 'w')
+# f = open('data/wiki_long_abstracts_en_text.clean.txt', 'w')
 f.write(clean_corpus_str)
 f.close()
 
-#dataset = '20ng'
+# dataset = '20ng'
 min_len = 10000
 aver_len = 0
-max_len = 0 
+max_len = 0
 
 f = open('data/corpus/' + dataset + '.clean.txt', 'r')
-#f = open('data/wiki_long_abstracts_en_text.txt', 'r')
+# f = open('data/wiki_long_abstracts_en_text.txt', 'r')
 lines = f.readlines()
 for line in lines:
     line = line.strip()

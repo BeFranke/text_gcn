@@ -13,19 +13,19 @@ import sys
 from scipy.spatial.distance import cosine
 
 if len(sys.argv) != 2:
-	sys.exit("Use: python build_graph.py <dataset>")
+    sys.exit("Use: python build_graph.py <dataset>")
 
-datasets = ['20ng', 'R8', 'R52', 'ohsumed', 'mr']
+# datasets = ['20ng', 'R8', 'R52', 'ohsumed', 'mr']
 # build corpus
 dataset = sys.argv[1]
 
-if dataset not in datasets:
-	sys.exit("wrong dataset name")
+# if dataset not in datasets:
+#	sys.exit("wrong dataset name")
 
 # Read Word Vectors
 # word_vector_file = 'data/glove.6B/glove.6B.300d.txt'
 # word_vector_file = 'data/corpus/' + dataset + '_word_vectors.txt'
-#_, embd, word_vector_map = loadWord2Vec(word_vector_file)
+# _, embd, word_vector_map = loadWord2Vec(word_vector_file)
 # word_embeddings_dim = len(embd[0])
 
 word_embeddings_dim = 300
@@ -65,7 +65,7 @@ print(train_ids)
 random.shuffle(train_ids)
 
 # partial labeled data
-#train_ids = train_ids[:int(0.2 * len(train_ids))]
+# train_ids = train_ids[:int(0.2 * len(train_ids))]
 
 train_ids_str = '\n'.join(str(index) for index in train_ids)
 f = open('data/' + dataset + '.train.index', 'w')
@@ -346,7 +346,6 @@ for i in range(vocab_size):
         col_allx.append(j)
         data_allx.append(word_vectors.item((i, j)))
 
-
 row_allx = np.array(row_allx)
 col_allx = np.array(col_allx)
 data_allx = np.array(data_allx)
@@ -391,7 +390,6 @@ for doc_words in shuffle_doc_words_list:
             window = words[j: j + window_size]
             windows.append(window)
             # print(window)
-
 
 word_window_freq = {}
 for window in windows:
@@ -443,7 +441,7 @@ for key in word_pair_count:
     word_freq_i = word_window_freq[vocab[i]]
     word_freq_j = word_window_freq[vocab[j]]
     pmi = log((1.0 * count / num_window) /
-              (1.0 * word_freq_i * word_freq_j/(num_window * num_window)))
+              (1.0 * word_freq_i * word_freq_j / (num_window * num_window)))
     if pmi <= 0:
         continue
     row.append(train_size + i)
