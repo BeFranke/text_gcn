@@ -3,14 +3,14 @@
 
 import pandas as pd
 
-dataset_name = 'amazon'
+dataset_name = 'amazon_cat1'
 df_train = pd.read_csv("data/amazon/train.csv")
 df_test = pd.read_csv("data/amazon/test.csv")
 
 
 sentences = list(df_train["Text"]) + list(df_test["Text"])
-labels = list(df_train)
-train_or_test_list = ['train', 'test']
+labels = list(df_train["Cat1"]) + list(df_test["Cat1"])
+train_or_test_list = (["train"] * len(df_train)) + (["test"] * len(df_test))
 
 
 meta_data_list = []
