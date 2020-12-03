@@ -501,6 +501,13 @@ node_size = train_size + vocab_size + test_size
 adj = sp.csr_matrix(
     (weight, (row, col)), shape=(node_size, node_size))
 
+# plot graph
+g = nx.from_scipy_sparse_matrix(adj)
+nx.set_node_attributes(g, {i: y_i for i, y_i in enumerate(y)}, 'y')
+nx.draw_networkx(g)
+import matplotlib.pyplot as plt
+plt.show()
+
 # dump objects
 f = open("data/ind.{}.x".format(dataset), 'wb')
 pkl.dump(x, f)
