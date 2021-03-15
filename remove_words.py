@@ -1,9 +1,9 @@
-from nltk.corpus import stopwords
-import nltk
-from nltk.wsd import lesk
-from nltk.corpus import wordnet as wn
-from utils import clean_str, loadWord2Vec
 import sys
+
+import nltk
+from nltk.corpus import stopwords
+
+from utils import clean_str
 
 if len(sys.argv) != 2:
     sys.exit("Use: python remove_words.py <dataset>")

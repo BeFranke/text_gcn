@@ -1,16 +1,11 @@
-import os
-import random
-import numpy as np
 import pickle as pkl
-import networkx as nx
-import scipy.sparse as sp
-from utils import loadWord2Vec, clean_str
-from math import log
-from sklearn import svm
-from nltk.corpus import wordnet as wn
-from sklearn.feature_extraction.text import TfidfVectorizer
+import random
 import sys
-from scipy.spatial.distance import cosine
+from math import log
+
+import networkx as nx
+import numpy as np
+import scipy.sparse as sp
 
 if len(sys.argv) != 2:
     sys.exit("Use: python build_graph.py <dataset>")
